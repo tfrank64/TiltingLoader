@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DemoViewController: UIViewController {
                             
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        var tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 60, self.view.frame.size.height/2 - 60, 120, 120))
+        self.view.addSubview(tiltLoadingView)
+        
     }
 
     override func didReceiveMemoryWarning() {
