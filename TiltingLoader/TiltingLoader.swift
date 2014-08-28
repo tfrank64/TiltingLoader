@@ -11,29 +11,55 @@ import QuartzCore
 
 class TiltingLoader: UIView {
     
+    var layers: [CALayer]
+    
     override init(frame: CGRect) {
+        layers = [CALayer]()
         super.init(frame: frame)
-        self.backgroundColor = UIColor.blueColor()
+        
+        //self.backgroundColor = UIColor.blueColor()
         initView()
     }
     
     required init(coder aDecoder: NSCoder) {
+        layers = [CALayer]()
         super.init(coder: aDecoder)
     }
     
     func initView() {
-        var layerOne = CALayer()
-        println(self.layer.frame)
-        layerOne.frame = CGRectMake(5, 5, self.frame.size.width-10, self.frame.size.height-10)
         
-        layerOne.backgroundColor = UIColor.redColor().CGColor
-        self.layer.addSublayer(layerOne)
-        
-        var layerTwo = CALayer()
-        layerTwo.frame = CGRectMake(5, 5, layerOne.frame.size.width-10, layerOne.frame.size.height-10)
-        println(layerTwo.frame)
-        layerTwo.backgroundColor = UIColor.greenColor().CGColor
-        layerOne.addSublayer(layerTwo)
+        for index in 1...10 {
+            
+            var tempLayer = CALayer()
+            if index == 1 {
+                tempLayer.frame = CGRectDecrementSize(self.frame, decrement: 10)
+                tempLayer.backgroundColor = UIColor.blackColor().CGColor
+                self.layer.addSublayer(tempLayer)
+            } else {
+                var previousLayer = layers.last as CALayer!
+                tempLayer.frame = CGRectDecrementSize(previousLayer.frame, decrement: 10)
+                var previousColor = UIColor(CGColor: previousLayer.backgroundColor)
+                tempLayer.backgroundColor = lighterColorForColor(previousColor)
+                previousLayer.addSublayer(tempLayer)
+            }
+            println(index)
+            layers.append(tempLayer)
+        }
+    }
+    
+    func CGRectDecrementSize(frame: CGRect, decrement: CGFloat) -> CGRect {
+        return CGRectMake(decrement / 2, decrement / 2, frame.size.width - decrement, frame.size.height - decrement)
+    }
+    
+    let decreaseValue: CGFloat = 0.1
+    
+    func lighterColorForColor(color: UIColor) -> CGColor {
+        var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a: CGFloat = 0
+        if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
+            var stuff = min(r + decreaseValue, 1.0)
+            return UIColor(red: min(r + decreaseValue, 1.0), green: min(g + decreaseValue, 1.0), blue: min(b + decreaseValue, 1.0), alpha: a).CGColor
+        }
+        return color.CGColor
     }
 
     /*
