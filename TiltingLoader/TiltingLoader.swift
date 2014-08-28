@@ -11,29 +11,34 @@ import QuartzCore
 
 class TiltingLoader: UIView {
     
+    internal var isAnimating: Bool
     var layers: [CALayer]
     
     override init(frame: CGRect) {
         layers = [CALayer]()
+        isAnimating = true
         super.init(frame: frame)
         
-        //self.backgroundColor = UIColor.blueColor()
         initView()
+        animateColors()
     }
     
     required init(coder aDecoder: NSCoder) {
         layers = [CALayer]()
+        isAnimating = true
         super.init(coder: aDecoder)
     }
     
+    // TODO: make everything customizable by the developer ( color, speed)
+    // TODO: even spacing for variable number of squares, make number of squares determined by view frame
     func initView() {
         
-        for index in 1...10 {
+        for index in 0...7 {
             
             var tempLayer = CALayer()
-            if index == 1 {
+            if index == 0 {
                 tempLayer.frame = CGRectDecrementSize(self.frame, decrement: 10)
-                tempLayer.backgroundColor = UIColor.blackColor().CGColor
+                tempLayer.backgroundColor = UIColor.blueColor().CGColor
                 self.layer.addSublayer(tempLayer)
             } else {
                 var previousLayer = layers.last as CALayer!
@@ -42,8 +47,45 @@ class TiltingLoader: UIView {
                 tempLayer.backgroundColor = lighterColorForColor(previousColor)
                 previousLayer.addSublayer(tempLayer)
             }
-            println(index)
             layers.append(tempLayer)
+        }
+    }
+    
+    func animateColors() {
+        var timer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+    }
+    
+    func iterateColors() {
+        
+        if isAnimating {
+            var tempColor: CGColor = UIColor.whiteColor().CGColor
+            for index in 0...7 {
+                if index == 0 {
+                    tempColor = layers[index].backgroundColor
+                    layers[index].backgroundColor = layers[index + 1].backgroundColor
+                } else if index == 7 {
+                    layers[index].backgroundColor = tempColor
+                } else {
+                    layers[index].backgroundColor = layers[index + 1].backgroundColor
+                }
+            }
+        }
+    }
+    
+    func iterateColorsInReverse() {
+        
+        if isAnimating {
+            var tempColor: CGColor = UIColor.whiteColor().CGColor
+            for var index = 7; index >= 0; index-- {
+                if index == 7 {
+                    tempColor = layers[index].backgroundColor
+                    layers[index].backgroundColor = layers[index - 1].backgroundColor
+                } else if index == 0 {
+                    layers[index].backgroundColor = tempColor
+                } else {
+                    layers[index].backgroundColor = layers[index - 1].backgroundColor
+                }
+            }
         }
     }
     
@@ -61,14 +103,9 @@ class TiltingLoader: UIView {
         }
         return color.CGColor
     }
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect)
-    {
-        // Drawing code
+    
+    func hide() {
+        isAnimating = false
     }
-    */
 
 }

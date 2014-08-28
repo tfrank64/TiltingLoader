@@ -13,7 +13,7 @@ class DemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 60, self.view.frame.size.height/2 - 60, 120, 120))
+        var tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 50, self.view.frame.size.height/2 - 50, 100, 100))
         self.view.addSubview(tiltLoadingView)
         
     }
