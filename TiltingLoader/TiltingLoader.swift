@@ -14,31 +14,38 @@ class TiltingLoader: UIView {
     let ratioValue: Float = 12.5
     
     internal var isAnimating: Bool
-    internal var layerCount: Int
-    internal var sizeDifference: CGFloat
-    var layers: [CALayer]
+    internal var animationFrequency: NSTimeInterval
+    internal var mainColor: UIColor
+    
+    private var layerCount: Int
+    private var sizeDifference: CGFloat
+    private var layers: [CALayer]
     
     // Recommended frame size of 50 or above
-    override init(frame: CGRect) {
-        layers = [CALayer]()
+    init(frame: CGRect, color: UIColor) {
         isAnimating = true
+        animationFrequency = 0.7
+        mainColor = color
+        
         layerCount = 0
         sizeDifference = 0
+        layers = [CALayer]()
         super.init(frame: frame)
         
         initView()
-        animateColors()
     }
     
     required init(coder aDecoder: NSCoder) {
-        layers = [CALayer]()
         isAnimating = true
+        animationFrequency = 0.7
+        mainColor = UIColor.purpleColor()
+        
         layerCount = 0
         sizeDifference = 0
+        layers = [CALayer]()
         super.init(coder: aDecoder)
     }
     
-    // TODO: make everything customizable by the developer ( color, speed)
     func initView() {
         
         // Calculate number of squares
@@ -55,7 +62,7 @@ class TiltingLoader: UIView {
             var tempLayer = CALayer()
             if index == 0 {
                 tempLayer.frame = CGRectDecrementSize(self.frame, decrement: sizeDifference)
-                tempLayer.backgroundColor = UIColor.blueColor().CGColor
+                tempLayer.backgroundColor = mainColor.CGColor
                 self.layer.addSublayer(tempLayer)
             } else {
                 var previousLayer = layers.last as CALayer!
@@ -63,13 +70,25 @@ class TiltingLoader: UIView {
                 var previousColor = UIColor(CGColor: previousLayer.backgroundColor)
                 tempLayer.backgroundColor = lighterColorForColor(previousColor)
                 previousLayer.addSublayer(tempLayer)
+                AddMotionToLayer(tempLayer, index: index)
             }
             layers.append(tempLayer)
         }
     }
     
+    func AddMotionToLayer(theLayer: CALayer, index: Int) {
+        
+        if index == 1 {
+            var horizontalMotion = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis)
+            horizontalMotion.minimumRelativeValue = -100
+            horizontalMotion.maximumRelativeValue = 100
+            self.addMotionEffect(horizontalMotion)
+        }
+        
+    }
+    
     func animateColors() {
-        var timer = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
     }
     
     func iterateColors() {
@@ -89,7 +108,7 @@ class TiltingLoader: UIView {
         }
     }
     
-    func animateColorsInReverse() {
+    func iterateColorsInReverse() {
         
         if isAnimating {
             var tempColor: CGColor = UIColor.whiteColor().CGColor
@@ -121,8 +140,14 @@ class TiltingLoader: UIView {
         return color.CGColor
     }
     
+    // TODO: add snap animations for showing and hiding
     func hide() {
-        isAnimating = false
+        UIView.animateWithDuration(0.25, animations: {
+            self.alpha = 0
+        }, completion: {(done: Bool) in
+            self.isAnimating = false
+            self.removeFromSuperview()
+        })
     }
 
 }
