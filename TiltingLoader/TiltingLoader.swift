@@ -11,12 +11,19 @@ import QuartzCore
 
 class TiltingLoader: UIView {
     
+    let ratioValue: Float = 12.5
+    
     internal var isAnimating: Bool
+    internal var layerCount: Int
+    internal var sizeDifference: CGFloat
     var layers: [CALayer]
     
+    // Recommended frame size of 50 or above
     override init(frame: CGRect) {
         layers = [CALayer]()
         isAnimating = true
+        layerCount = 0
+        sizeDifference = 0
         super.init(frame: frame)
         
         initView()
@@ -26,23 +33,33 @@ class TiltingLoader: UIView {
     required init(coder aDecoder: NSCoder) {
         layers = [CALayer]()
         isAnimating = true
+        layerCount = 0
+        sizeDifference = 0
         super.init(coder: aDecoder)
     }
     
     // TODO: make everything customizable by the developer ( color, speed)
-    // TODO: even spacing for variable number of squares, make number of squares determined by view frame
     func initView() {
         
-        for index in 0...7 {
-            
+        // Calculate number of squares
+        var minVal = fmin(self.frame.size.width, self.frame.size.height)
+        layerCount = Int(floor(Float(minVal)/ratioValue))
+        if (layerCount == 0 || layerCount == 1) { layerCount = 2 } // Effect is pointless with few squares
+        println(layerCount)
+        println(minVal)
+        sizeDifference = minVal/CGFloat(layerCount + 1) // Plus 1 to ensure all layers are visible
+        println(sizeDifference)
+        
+        for index in 0..<layerCount {
+
             var tempLayer = CALayer()
             if index == 0 {
-                tempLayer.frame = CGRectDecrementSize(self.frame, decrement: 10)
+                tempLayer.frame = CGRectDecrementSize(self.frame, decrement: sizeDifference)
                 tempLayer.backgroundColor = UIColor.blueColor().CGColor
                 self.layer.addSublayer(tempLayer)
             } else {
                 var previousLayer = layers.last as CALayer!
-                tempLayer.frame = CGRectDecrementSize(previousLayer.frame, decrement: 10)
+                tempLayer.frame = CGRectDecrementSize(previousLayer.frame, decrement: sizeDifference)
                 var previousColor = UIColor(CGColor: previousLayer.backgroundColor)
                 tempLayer.backgroundColor = lighterColorForColor(previousColor)
                 previousLayer.addSublayer(tempLayer)
@@ -59,11 +76,11 @@ class TiltingLoader: UIView {
         
         if isAnimating {
             var tempColor: CGColor = UIColor.whiteColor().CGColor
-            for index in 0...7 {
+            for index in 0..<layerCount {
                 if index == 0 {
                     tempColor = layers[index].backgroundColor
                     layers[index].backgroundColor = layers[index + 1].backgroundColor
-                } else if index == 7 {
+                } else if index == layerCount - 1 {
                     layers[index].backgroundColor = tempColor
                 } else {
                     layers[index].backgroundColor = layers[index + 1].backgroundColor
@@ -72,12 +89,12 @@ class TiltingLoader: UIView {
         }
     }
     
-    func iterateColorsInReverse() {
+    func animateColorsInReverse() {
         
         if isAnimating {
             var tempColor: CGColor = UIColor.whiteColor().CGColor
-            for var index = 7; index >= 0; index-- {
-                if index == 7 {
+            for var index = layerCount - 1; index >= 0; index-- {
+                if index == layerCount - 1 {
                     tempColor = layers[index].backgroundColor
                     layers[index].backgroundColor = layers[index - 1].backgroundColor
                 } else if index == 0 {
