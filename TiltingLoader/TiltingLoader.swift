@@ -17,9 +17,9 @@ class TiltingLoader: UIView {
     internal var animationFrequency: NSTimeInterval
     internal var mainColor: UIColor
     
-    private var layerCount: Int
+    private var viewCount: Int
     private var sizeDifference: CGFloat
-    private var layers: [CALayer]
+    private var views: [UIView]
     
     // Recommended frame size of 50 or above
     init(frame: CGRect, color: UIColor) {
@@ -27,9 +27,9 @@ class TiltingLoader: UIView {
         animationFrequency = 0.7
         mainColor = color
         
-        layerCount = 0
+        viewCount = 0
         sizeDifference = 0
-        layers = [CALayer]()
+        views = [UIView]()
         super.init(frame: frame)
         
         initView()
@@ -40,9 +40,9 @@ class TiltingLoader: UIView {
         animationFrequency = 0.7
         mainColor = UIColor.purpleColor()
         
-        layerCount = 0
+        viewCount = 0
         sizeDifference = 0
-        layers = [CALayer]()
+        views = [UIView]()
         super.init(coder: aDecoder)
     }
     
@@ -50,33 +50,32 @@ class TiltingLoader: UIView {
         
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
-        layerCount = Int(floor(Float(minVal)/ratioValue))
-        if (layerCount == 0 || layerCount == 1) { layerCount = 2 } // Effect is pointless with few squares
-        println(layerCount)
+        viewCount = Int(floor(Float(minVal)/ratioValue))
+        if (viewCount == 0 || viewCount == 1) { viewCount = 2 } // Effect is pointless with few squares
+        println(viewCount)
         println(minVal)
-        sizeDifference = minVal/CGFloat(layerCount + 1) // Plus 1 to ensure all layers are visible
+        sizeDifference = minVal/CGFloat(viewCount + 1) // Plus 1 to ensure all views are visible
         println(sizeDifference)
         
-        for index in 0..<layerCount {
+        for index in 0..<viewCount {
 
-            var tempLayer = CALayer()
+            var tempView = UIView()
             if index == 0 {
-                tempLayer.frame = CGRectDecrementSize(self.frame, decrement: sizeDifference)
-                tempLayer.backgroundColor = mainColor.CGColor
-                self.layer.addSublayer(tempLayer)
+                tempView.frame = CGRectDecrementSize(self.frame, decrement: sizeDifference)
+                tempView.backgroundColor = mainColor
+                self.addSubview(tempView)
             } else {
-                var previousLayer = layers.last as CALayer!
-                tempLayer.frame = CGRectDecrementSize(previousLayer.frame, decrement: sizeDifference)
-                var previousColor = UIColor(CGColor: previousLayer.backgroundColor)
-                tempLayer.backgroundColor = lighterColorForColor(previousColor)
-                previousLayer.addSublayer(tempLayer)
-                AddMotionToLayer(tempLayer, index: index)
+                var previousView = views.last as UIView!
+                tempView.frame = CGRectDecrementSize(previousView.frame, decrement: sizeDifference)
+                tempView.backgroundColor = lighterColorForColor(previousView.backgroundColor!)
+                previousView.addSubview(tempView)
+                AddMotionToView(tempView, index: index)
             }
-            layers.append(tempLayer)
+            views.append(tempView)
         }
     }
     
-    func AddMotionToLayer(theLayer: CALayer, index: Int) {
+    func AddMotionToView(view: UIView, index: Int) {
         
         if index == 1 {
             var horizontalMotion = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis)
@@ -94,15 +93,15 @@ class TiltingLoader: UIView {
     func iterateColors() {
         
         if isAnimating {
-            var tempColor: CGColor = UIColor.whiteColor().CGColor
-            for index in 0..<layerCount {
+            var tempColor: UIColor = UIColor.whiteColor()
+            for index in 0..<viewCount {
                 if index == 0 {
-                    tempColor = layers[index].backgroundColor
-                    layers[index].backgroundColor = layers[index + 1].backgroundColor
-                } else if index == layerCount - 1 {
-                    layers[index].backgroundColor = tempColor
+                    tempColor = views[index].backgroundColor!
+                    views[index].backgroundColor = views[index + 1].backgroundColor
+                } else if index == viewCount - 1 {
+                    views[index].backgroundColor = tempColor
                 } else {
-                    layers[index].backgroundColor = layers[index + 1].backgroundColor
+                    views[index].backgroundColor = views[index + 1].backgroundColor
                 }
             }
         }
@@ -111,15 +110,15 @@ class TiltingLoader: UIView {
     func iterateColorsInReverse() {
         
         if isAnimating {
-            var tempColor: CGColor = UIColor.whiteColor().CGColor
-            for var index = layerCount - 1; index >= 0; index-- {
-                if index == layerCount - 1 {
-                    tempColor = layers[index].backgroundColor
-                    layers[index].backgroundColor = layers[index - 1].backgroundColor
+            var tempColor: UIColor = UIColor.whiteColor()
+            for var index = viewCount - 1; index >= 0; index-- {
+                if index == viewCount - 1 {
+                    tempColor = views[index].backgroundColor!
+                    views[index].backgroundColor = views[index - 1].backgroundColor
                 } else if index == 0 {
-                    layers[index].backgroundColor = tempColor
+                    views[index].backgroundColor = tempColor
                 } else {
-                    layers[index].backgroundColor = layers[index - 1].backgroundColor
+                    views[index].backgroundColor = views[index - 1].backgroundColor
                 }
             }
         }
@@ -131,13 +130,13 @@ class TiltingLoader: UIView {
     
     let decreaseValue: CGFloat = 0.1
     
-    func lighterColorForColor(color: UIColor) -> CGColor {
+    func lighterColorForColor(color: UIColor) -> UIColor {
         var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a: CGFloat = 0
         if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
             var stuff = min(r + decreaseValue, 1.0)
-            return UIColor(red: min(r + decreaseValue, 1.0), green: min(g + decreaseValue, 1.0), blue: min(b + decreaseValue, 1.0), alpha: a).CGColor
+            return UIColor(red: min(r + decreaseValue, 1.0), green: min(g + decreaseValue, 1.0), blue: min(b + decreaseValue, 1.0), alpha: a)
         }
-        return color.CGColor
+        return color
     }
     
     // TODO: add snap animations for showing and hiding
