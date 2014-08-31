@@ -19,13 +19,15 @@ class DemoViewController: UIViewController {
         self.view.addSubview(tiltLoadingView)
         tiltLoadingView.animateColors(false)
         //var timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "stop", userInfo: nil, repeats: false)
+        
+        // TODO: add simple examples of different use cases
     }
     
     func stop() {
         tiltLoadingView.hide()
     }
 
-    override func didReceiveMemoryWarning() {iterateColorsInReverse
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

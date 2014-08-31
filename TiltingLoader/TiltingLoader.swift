@@ -33,6 +33,7 @@ class TiltingLoader: UIView {
         views = [UIView]()
         super.init(frame: frame)
         
+        self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
         initView()
     }
     
@@ -45,9 +46,11 @@ class TiltingLoader: UIView {
         sizeDifference = 0
         views = [UIView]()
         super.init(coder: aDecoder)
+        self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
     }
     // TODO: add method and var documentation
-    func initView() {
+    // TODO: add convenience init that centers loading view in passed in view
+    private func initView() {
         
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
@@ -57,6 +60,7 @@ class TiltingLoader: UIView {
         sizeDifference = minVal/CGFloat(viewCount + 1) // Plus 1 to ensure all views are visible
         var halfSize = sizeDifference/2
         
+        // Create squares with increasingly lighter colors
         for index in 0..<viewCount {
 
             var tempView = UIView()
@@ -105,7 +109,7 @@ class TiltingLoader: UIView {
         }
     }
     
-    func animateColors(reverse: Bool) {
+    internal func animateColors(reverse: Bool) {
         if reverse {
             var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
         } else {
@@ -147,11 +151,11 @@ class TiltingLoader: UIView {
         }
     }
     
-    func CGRectDecrementSize(frame: CGRect, decrement: CGFloat) -> CGRect {
+    private func CGRectDecrementSize(frame: CGRect, decrement: CGFloat) -> CGRect {
         return CGRectMake(decrement / 2, decrement / 2, frame.size.width - decrement, frame.size.height - decrement)
     }
     
-    func lighterColorForColor(color: UIColor) -> UIColor {
+    private func lighterColorForColor(color: UIColor) -> UIColor {
         var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a: CGFloat = 0
         if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
             return UIColor(red: min(r + colorShadeDifference, 1.0), green: min(g + colorShadeDifference, 1.0), blue: min(b + colorShadeDifference, 1.0), alpha: a)
@@ -160,7 +164,7 @@ class TiltingLoader: UIView {
     }
     
     // TODO: add snap animations for showing and hiding
-    func hide() {
+    internal func hide() {
         UIView.animateWithDuration(0.25, animations: {
             self.alpha = 0
         }, completion: {(done: Bool) in
