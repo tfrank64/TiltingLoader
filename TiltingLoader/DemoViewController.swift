@@ -15,9 +15,9 @@ class DemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 50, self.view.frame.size.height/2 - 50, 90, 90), color: UIColor.orangeColor())
+        tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 70, self.view.frame.size.height/2 - 70, 140, 140), color: UIColor.purpleColor())
         self.view.addSubview(tiltLoadingView)
-        tiltLoadingView.animateColors()
+        tiltLoadingView.animateColors(false)
         //var timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "stop", userInfo: nil, repeats: false)
     }
     
@@ -25,7 +25,7 @@ class DemoViewController: UIViewController {
         tiltLoadingView.hide()
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning() {iterateColorsInReverse
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

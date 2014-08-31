@@ -11,7 +11,8 @@ import QuartzCore
 
 class TiltingLoader: UIView {
     
-    let ratioValue: Float = 12.5
+    private let ratioValue: Float = 12.5
+    private let colorShadeDifference: CGFloat = 0.05
     
     internal var isAnimating: Bool
     internal var animationFrequency: NSTimeInterval
@@ -45,17 +46,16 @@ class TiltingLoader: UIView {
         views = [UIView]()
         super.init(coder: aDecoder)
     }
-    
+    // TODO: add method and var documentation
     func initView() {
         
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
         if (viewCount == 0 || viewCount == 1) { viewCount = 2 } // Effect is pointless with few squares
-        println(viewCount)
-        println(minVal)
+        if (viewCount > 10) { viewCount = 10 } // Color gets to white with more than 10
         sizeDifference = minVal/CGFloat(viewCount + 1) // Plus 1 to ensure all views are visible
-        println(sizeDifference)
+        var halfSize = sizeDifference/2
         
         for index in 0..<viewCount {
 
@@ -69,28 +69,51 @@ class TiltingLoader: UIView {
                 tempView.frame = CGRectDecrementSize(previousView.frame, decrement: sizeDifference)
                 tempView.backgroundColor = lighterColorForColor(previousView.backgroundColor!)
                 previousView.addSubview(tempView)
-                AddMotionToView(tempView, index: index)
+                addHorizontalVerticalMotionToView(halfSize, y: halfSize, view: tempView)
             }
             views.append(tempView)
         }
     }
     
-    func AddMotionToView(view: UIView, index: Int) {
+    // Method adapted from http://useyourloaf.com/blog/2014/01/03/motion-effects.html
+    private func addHorizontalVerticalMotionToView(x: CGFloat, y: CGFloat, view: UIView) {
+        var xAxis: UIInterpolatingMotionEffect?
+        var yAxis: UIInterpolatingMotionEffect?
         
-        if index == 1 {
-            var horizontalMotion = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis)
-            horizontalMotion.minimumRelativeValue = -100
-            horizontalMotion.maximumRelativeValue = 100
-            self.addMotionEffect(horizontalMotion)
+        if x != 0.0 {
+            xAxis = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.TiltAlongHorizontalAxis)
+            xAxis!.minimumRelativeValue = -x
+            xAxis!.maximumRelativeValue = x
+        }
+        if y != 0.0 {
+            yAxis = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffectType.TiltAlongVerticalAxis)
+            yAxis!.minimumRelativeValue = -y
+            yAxis!.maximumRelativeValue = y
         }
         
+        if xAxis != nil || yAxis != nil {
+            var group = UIMotionEffectGroup()
+            var effects = [UIInterpolatingMotionEffect]()
+            if let val = xAxis {
+                effects.append(val)
+            }
+            if let val = yAxis {
+                effects.append(val)
+            }
+            group.motionEffects = effects
+            view.addMotionEffect(group)
+        }
     }
     
-    func animateColors() {
-        var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+    func animateColors(reverse: Bool) {
+        if reverse {
+            var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
+        } else {
+            var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+        }
     }
     
-    func iterateColors() {
+    internal func iterateColors() {
         
         if isAnimating {
             var tempColor: UIColor = UIColor.whiteColor()
@@ -107,7 +130,7 @@ class TiltingLoader: UIView {
         }
     }
     
-    func iterateColorsInReverse() {
+    internal func iterateColorsInReverse() {
         
         if isAnimating {
             var tempColor: UIColor = UIColor.whiteColor()
@@ -128,13 +151,10 @@ class TiltingLoader: UIView {
         return CGRectMake(decrement / 2, decrement / 2, frame.size.width - decrement, frame.size.height - decrement)
     }
     
-    let decreaseValue: CGFloat = 0.1
-    
     func lighterColorForColor(color: UIColor) -> UIColor {
         var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a: CGFloat = 0
         if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
-            var stuff = min(r + decreaseValue, 1.0)
-            return UIColor(red: min(r + decreaseValue, 1.0), green: min(g + decreaseValue, 1.0), blue: min(b + decreaseValue, 1.0), alpha: a)
+            return UIColor(red: min(r + colorShadeDifference, 1.0), green: min(g + colorShadeDifference, 1.0), blue: min(b + colorShadeDifference, 1.0), alpha: a)
         }
         return color
     }
