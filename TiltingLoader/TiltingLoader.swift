@@ -15,9 +15,16 @@ class TiltingLoader: UIView {
     private let colorShadeDifference: CGFloat = 0.05
     private var animator: UIDynamicAnimator?
     
+    /// Determines if loader is or should be animating
     internal var isAnimating: Bool
+    
+    /// The interval for how often to swap colors in the loader
     internal var animationFrequency: NSTimeInterval
+    
+    /// The base color for the loader
     internal var mainColor: UIColor
+    
+    /// Value to determine how the loader will be dismissed
     internal var dynamicDismissal: Bool {
         get {
             return animator == nil ? false : true
@@ -33,7 +40,7 @@ class TiltingLoader: UIView {
     private var sizeDifference: CGFloat
     private var views: [UIView]
     
-    // Recommended frame size of 50 or above
+    /// Tip: Recommended frame size of 50 or above
     init(frame: CGRect, color: UIColor) {
         isAnimating = true
         animationFrequency = 0.7
@@ -48,6 +55,7 @@ class TiltingLoader: UIView {
         initView()
     }
     
+    /// NSCoder init seems to be mandatory for a UIView subclass in Swift
     required init(coder aDecoder: NSCoder) {
         isAnimating = true
         animationFrequency = 0.7
@@ -59,10 +67,12 @@ class TiltingLoader: UIView {
         super.init(coder: aDecoder)
         self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
     }
-    // TODO: add method and var documentation
+    
     // TODO: add convenience init that centers loading view in passed in view
+    
+    /// Creates all the main UI components
     private func initView() {
-        //animator = UIDynamicAnimator(referenceView: self.superview)
+
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
@@ -90,7 +100,11 @@ class TiltingLoader: UIView {
         }
     }
     
-    // Method adapted from http://useyourloaf.com/blog/2014/01/03/motion-effects.html
+    /// This method adds vertical and horizontal motion behaviours to a UIView
+    ///
+    /// :param: x x is the horizontal motion range
+    /// :param: y y is the vertical motion range
+    /// :param: view view is the UIView for which the motion effect will be applied
     private func addHorizontalVerticalMotionToView(x: CGFloat, y: CGFloat, view: UIView) {
         var xAxis: UIInterpolatingMotionEffect?
         var yAxis: UIInterpolatingMotionEffect?
@@ -118,8 +132,12 @@ class TiltingLoader: UIView {
             group.motionEffects = effects
             view.addMotionEffect(group)
         }
+        // Method adapted from http://useyourloaf.com/blog/2014/01/03/motion-effects.html
     }
     
+    /// Begins color animation process by determining which color iteration method to call
+    ///
+    /// :param: reverse reverse is a boolean to determine which color iteration method to call
     internal func animateColors(reverse: Bool) {
         if reverse {
             var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
@@ -128,6 +146,7 @@ class TiltingLoader: UIView {
         }
     }
     
+    /// iterateColors() swaps the background colors of views for an animation effect
     internal func iterateColors() {
         
         if isAnimating {
@@ -145,6 +164,8 @@ class TiltingLoader: UIView {
         }
     }
     
+    /// iterateColorsInReverse() swaps the background colors of views for an animation effect
+    /// It is different from iterateColors() in that it does it in the opposite order
     internal func iterateColorsInReverse() {
         
         if isAnimating {
@@ -162,10 +183,19 @@ class TiltingLoader: UIView {
         }
     }
     
+    /// Helper method to make a CGRect the decrement size smaller
+    ///
+    /// :param: frame The frame is the original frame
+    /// :param: decrement decrement is the scale by which the returned CGRect will be smaller
+    /// :returns: Returns a CGRect smaller and centered in frame
     private func CGRectDecrementSize(frame: CGRect, decrement: CGFloat) -> CGRect {
         return CGRectMake(decrement / 2, decrement / 2, frame.size.width - decrement, frame.size.height - decrement)
     }
     
+    /// Method that returns a slightly lighter color than the one passed in
+    ///
+    /// :param: color color is the color we want to make ligter
+    /// :returns: The lighter color
     private func lighterColorForColor(color: UIColor) -> UIColor {
         var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a: CGFloat = 0
         if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
@@ -174,6 +204,7 @@ class TiltingLoader: UIView {
         return color
     }
     
+    /// Dismisses TiltingLoader with a gravit drop or a fade
     internal func hide() {
         if dynamicDismissal {
             self.isAnimating = false

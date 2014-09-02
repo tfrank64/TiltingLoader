@@ -26,17 +26,7 @@ class DemoViewController: UIViewController {
     
     func stop() {
         tiltLoadingView.hide()
-        
-//        var animator = UIDynamicAnimator(referenceView: self.view)
-//        
-//        var gravityBehavior = UIGravityBehavior(items: [tiltLoadingView])
-//        gravityBehavior.gravityDirection = CGVectorMake(0, 10)
-//        animator.addBehavior(gravityBehavior)
-//        
-//        var itemBehaviour = UIDynamicItemBehavior(items: [tiltLoadingView])
-//        var negate = -M_PI_2
-//        itemBehaviour.addAngularVelocity(CGFloat(negate), forItem: tiltLoadingView)
-//        animator.addBehavior(itemBehaviour)
+
     }
 
     override func didReceiveMemoryWarning() {
