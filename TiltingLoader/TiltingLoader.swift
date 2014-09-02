@@ -13,10 +13,21 @@ class TiltingLoader: UIView {
     
     private let ratioValue: Float = 12.5
     private let colorShadeDifference: CGFloat = 0.05
+    private var animator: UIDynamicAnimator?
     
     internal var isAnimating: Bool
     internal var animationFrequency: NSTimeInterval
     internal var mainColor: UIColor
+    internal var dynamicDismissal: Bool {
+        get {
+            return animator == nil ? false : true
+        }
+        set(val) {
+            if val {
+                animator = UIDynamicAnimator(referenceView: self.superview)
+            }
+        }
+    }
     
     private var viewCount: Int
     private var sizeDifference: CGFloat
@@ -51,7 +62,7 @@ class TiltingLoader: UIView {
     // TODO: add method and var documentation
     // TODO: add convenience init that centers loading view in passed in view
     private func initView() {
-        
+        //animator = UIDynamicAnimator(referenceView: self.superview)
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
@@ -163,14 +174,34 @@ class TiltingLoader: UIView {
         return color
     }
     
-    // TODO: add snap animations for showing and hiding
     internal func hide() {
-        UIView.animateWithDuration(0.25, animations: {
-            self.alpha = 0
-        }, completion: {(done: Bool) in
+        if dynamicDismissal {
             self.isAnimating = false
-            self.removeFromSuperview()
-        })
+
+            var gravityBehavior = UIGravityBehavior(items: [self])
+            gravityBehavior.gravityDirection = CGVectorMake(0, 7)
+            animator!.addBehavior(gravityBehavior)
+            
+            var itemBehaviour = UIDynamicItemBehavior(items: [self])
+            var negate = -M_PI_2
+            itemBehaviour.addAngularVelocity(CGFloat(negate), forItem: self)
+            animator!.addBehavior(itemBehaviour)
+            
+            // Give gravity time before removing loader
+            NSTimer(timeInterval: 1.0, target: self, selector: "removeLoader", userInfo: nil, repeats: false)
+            
+        } else {
+            UIView.animateWithDuration(0.25, animations: {
+                self.alpha = 0
+            }, completion: {(done: Bool) in
+                self.isAnimating = false
+                self.removeFromSuperview()
+            })
+        }
     }
 
+    func removeLoader() {
+        self.removeFromSuperview()
+    }
+    
 }
