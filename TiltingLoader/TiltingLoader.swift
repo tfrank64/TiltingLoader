@@ -25,16 +25,7 @@ class TiltingLoader: UIView {
     internal var mainColor: UIColor
     
     /// Value to determine how the loader will be dismissed
-    internal var dynamicDismissal: Bool {
-        get {
-            return animator == nil ? false : true
-        }
-        set(val) {
-            if val {
-                animator = UIDynamicAnimator(referenceView: self.superview)
-            }
-        }
-    }
+    internal var dynamicDismissal: Bool
     
     private var viewCount: Int
     private var sizeDifference: CGFloat
@@ -45,6 +36,7 @@ class TiltingLoader: UIView {
         isAnimating = true
         animationFrequency = 0.7
         mainColor = color
+        dynamicDismissal = false;
         
         viewCount = 0
         sizeDifference = 0
@@ -60,6 +52,7 @@ class TiltingLoader: UIView {
         isAnimating = true
         animationFrequency = 0.7
         mainColor = UIColor.purpleColor()
+        dynamicDismissal = false;
         
         viewCount = 0
         sizeDifference = 0
@@ -72,7 +65,7 @@ class TiltingLoader: UIView {
     
     /// Creates all the main UI components
     private func initView() {
-
+        println(self.superview)
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
@@ -139,6 +132,8 @@ class TiltingLoader: UIView {
     ///
     /// :param: reverse reverse is a boolean to determine which color iteration method to call
     internal func animateColors(reverse: Bool) {
+        animator = UIDynamicAnimator(referenceView: self.superview!)
+        
         if reverse {
             var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
         } else {
