@@ -61,11 +61,40 @@ class TiltingLoader: UIView {
         self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
     }
     
-    // TODO: add convenience init that centers loading view in passed in view
+    /// Convenience method to always add loader to center of passed in view
+    ///
+    /// :param: view view is typically the superview, the view to add the tiltingLoader to
+    /// :param: color color determines what color the tiltingLoader will be
+    class func showTiltingLoader(view: UIView, color: UIColor) {
+        var rect = CGRectMake(view.frame.size.width/2 - 50, view.frame.size.height/2 - 50, 100, 100)
+        var loader = TiltingLoader(frame: rect, color: color)
+        view.addSubview(loader)
+        loader.animateColors(false)
+    }
+    
+    /// Hides TiltingLoader created with showTiltingLoader
+    class func hideTiltingLoader(view: UIView, dynamic: Bool) {
+        if let loader = loaderForView(view) {
+            loader.dynamicDismissal = dynamic
+            loader.hide()
+        }
+    }
+    
+    /// Finds TiltingLoader reference
+    class func loaderForView(view: UIView) -> TiltingLoader? {
+        var tempLoader: TiltingLoader?
+        var viewsArray = view.subviews.reverse()
+        for subview in viewsArray {
+            if subview.isKindOfClass(self) {
+                tempLoader = subview as? TiltingLoader
+                break
+            }
+        }
+        return tempLoader!
+    }
     
     /// Creates all the main UI components
     private func initView() {
-        println(self.superview)
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
