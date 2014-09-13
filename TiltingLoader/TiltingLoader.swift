@@ -68,8 +68,10 @@ class TiltingLoader: UIView {
     class func showTiltingLoader(view: UIView, color: UIColor) {
         var rect = CGRectMake(view.frame.size.width/2 - 50, view.frame.size.height/2 - 50, 100, 100)
         var loader = TiltingLoader(frame: rect, color: color)
+        loader.alpha = 0
         view.addSubview(loader)
         loader.animateColors(false)
+        UIView.animateWithDuration(0.3, animations: { loader.alpha = 1 })
     }
     
     /// Hides TiltingLoader created with showTiltingLoader
