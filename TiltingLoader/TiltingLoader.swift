@@ -27,16 +27,20 @@ class TiltingLoader: UIView {
     /// Value to determine how the loader will be dismissed
     internal var dynamicDismissal: Bool
     
+    /// Determines if corners should be rounded
+    internal var cornerRadius: CGFloat
+    
     private var viewCount: Int
     private var sizeDifference: CGFloat
     private var views: [UIView]
     
     /// Tip: Recommended frame size of 50 or above
-    init(frame: CGRect, color: UIColor) {
+    init(frame: CGRect, color: UIColor, cornerRad: CGFloat) {
         isAnimating = true
         animationFrequency = 0.7
         mainColor = color
         dynamicDismissal = false;
+        cornerRadius = cornerRad
         
         viewCount = 0
         sizeDifference = 0
@@ -53,6 +57,7 @@ class TiltingLoader: UIView {
         animationFrequency = 0.7
         mainColor = UIColor.purpleColor()
         dynamicDismissal = false;
+        cornerRadius = 0.0
         
         viewCount = 0
         sizeDifference = 0
@@ -65,9 +70,9 @@ class TiltingLoader: UIView {
     ///
     /// :param: view view is typically the superview, the view to add the tiltingLoader to
     /// :param: color color determines what color the tiltingLoader will be
-    class func showTiltingLoader(view: UIView, color: UIColor) {
+    class func showTiltingLoader(view: UIView, color: UIColor, cornerVal: CGFloat) {
         var rect = CGRectMake(view.frame.size.width/2 - 50, view.frame.size.height/2 - 50, 100, 100)
-        var loader = TiltingLoader(frame: rect, color: color)
+        var loader = TiltingLoader(frame: rect, color: color, cornerRad: cornerVal)
         loader.alpha = 0
         view.addSubview(loader)
         loader.animateColors(false)
@@ -95,6 +100,16 @@ class TiltingLoader: UIView {
         return tempLoader!
     }
     
+    class func activeLoadersInView(view: UIView) -> Bool {
+        var viewsArray = view.subviews.reverse()
+        for subview in viewsArray {
+            if subview.isKindOfClass(self) {
+                return true
+            }
+        }
+        return false
+    }
+    
     /// Creates all the main UI components
     private func initView() {
         // Calculate number of squares
@@ -120,6 +135,7 @@ class TiltingLoader: UIView {
                 previousView.addSubview(tempView)
                 addHorizontalVerticalMotionToView(halfSize, y: halfSize, view: tempView)
             }
+            if cornerRadius > 0 { tempView.layer.cornerRadius = cornerRadius }
             views.append(tempView)
         }
     }
@@ -245,8 +261,8 @@ class TiltingLoader: UIView {
             animator!.addBehavior(itemBehaviour)
             
             // Give gravity time before removing loader
-            NSTimer(timeInterval: 1.0, target: self, selector: "removeLoader", userInfo: nil, repeats: false)
-            
+            NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector: "removeLoader", userInfo: nil, repeats: false)
+
         } else {
             UIView.animateWithDuration(0.25, animations: {
                 self.alpha = 0

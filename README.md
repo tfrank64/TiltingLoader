@@ -7,10 +7,11 @@ TiltingLoader is a loading view you can tilt while you wait. The loader is meant
 ## Demo
 
 ## Usage
+** Run on a physical device for motion effects **
 
 ## Installation
 ##### To install, simple drag the TiltingLoader.swift file to your project and use it.
-* Use a briding header to use in an Objective-C project.
+* Use a [briding header](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html) to run in an Objective-C project.
 * Coming soon: CocoaPods integration
 
 TiltingLoader requires iOS 7 or later.
