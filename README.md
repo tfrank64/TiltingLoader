@@ -68,7 +68,7 @@ Before calling `animateColors()` on a TiltingLoader instance, you can change the
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/rectangular.png" alt="rectangle" height="568"/><span style="color:white">lol</span>
+<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/rectangular.png" alt="rectangle" height="568"/>__
 <img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/largeRounded.png" alt="rectangle" height="568"/>
 
 
