@@ -7,6 +7,7 @@ TiltingLoader is a loading view you can tilt while you wait. The loader is meant
 ## Demo
 
 Check out the DemoViewController for specific examples on how to use TiltingLoader
+<img src="#" width="320">
 
 ## Usage
 ** Run on a physical device for motion effects **
@@ -64,12 +65,25 @@ Before calling `animateColors()` on a TiltingLoader instance, you can change the
   </tr>
 </table>
 
+## Screenshots
+
+[![]()]()
+[![]()]()
+
 ## Installation
 ##### To install, simple drag the TiltingLoader.swift file to your project and use it.
 * Use a [briding header](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html) to run in an Objective-C project.
 * Coming soon: CocoaPods integration
 
 TiltingLoader requires iOS 7 or later.
+
+## Contributing
+
+This project is very open to contributions using the standard process below:
+
+* Fork this repo
+* Make your changes
+* Submit a pull request
 
 ## Created By
 [Taylor Franklin](https://github.com/tfrank64)
