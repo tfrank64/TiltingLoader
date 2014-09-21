@@ -68,8 +68,9 @@ Before calling `animateColors()` on a TiltingLoader instance, you can change the
 
 ## Screenshots
 
-![](https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/rectangular.png )
-![](https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/largeRounded.png)
+<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/rectangular.png" alt="rectangle" height="568"/><span style="color:white">lol</span>
+<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/largeRounded.png" alt="rectangle" height="568"/>
+
 
 ## Installation
 ##### To install, simple drag the TiltingLoader.swift file to your project and use it.
