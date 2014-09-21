@@ -29,14 +29,27 @@ TiltingLoader.hideTiltingLoader(self.view, dynamic: true)
 ```
 
 ## Customization
-#### Init Params
-``frame`` Simply the size of the loader within superview</br>
-``color`` The color of the loader, darker colors work best.</br>
-``cornerRad`` is used to determine how rounded the corners of the loader should be.</br></br>
+
+<table>
+  <caption>Init Params</caption>
+  <tr>
+    <td><tt> frame: CGRect</tt></td>
+    <td>Simply the size of the loader within superview</td>
+  </tr>
+    <tr>
+    <td><tt> color: UIColor</tt></td>
+    <td>The color of the loader, darker colors work best.</td>
+  </tr>
+    <tr>
+    <td><tt> cornerRad: CGFloat</tt></td>
+    <td>is used to determine how rounded the corners of the loader should be.</td>
+  </tr>
+ </table>
+</br>
 
 Before calling `animateColors()` on a TiltingLoader instance, you can change the following properties:
 <table>
-  <caption>configureable properties</caption>
+  <caption>Configureable Properties</caption>
   <tr>
     <td><tt>isAnimating: Bool</tt></td>
     <td>Getting this value determines if a loader is currently animating. Setting this value makes it so the loader will animate when animateColors() is called. Default: true</td>
