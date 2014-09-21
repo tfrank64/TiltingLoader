@@ -21,15 +21,13 @@ class TiltingLoader: UIView {
     /// The interval for how often to swap colors in the loader
     internal var animationFrequency: NSTimeInterval
     
-    /// The base color for the loader
-    internal var mainColor: UIColor
-    
     /// Value to determine how the loader will be dismissed
     internal var dynamicDismissal: Bool
     
+    /// The base color for the loader
+    private var mainColor: UIColor
     /// Determines if corners should be rounded
-    internal var cornerRadius: CGFloat
-    
+    private var cornerRadius: CGFloat
     private var viewCount: Int
     private var sizeDifference: CGFloat
     private var views: [UIView]
@@ -70,9 +68,9 @@ class TiltingLoader: UIView {
     ///
     /// :param: view view is typically the superview, the view to add the tiltingLoader to
     /// :param: color color determines what color the tiltingLoader will be
-    class func showTiltingLoader(view: UIView, color: UIColor, cornerVal: CGFloat) {
+    class func showTiltingLoader(view: UIView, color: UIColor, cornerRad: CGFloat) {
         var rect = CGRectMake(view.frame.size.width/2 - 50, view.frame.size.height/2 - 50, 100, 100)
-        var loader = TiltingLoader(frame: rect, color: color, cornerRad: cornerVal)
+        var loader = TiltingLoader(frame: rect, color: color, cornerRad: cornerRad)
         loader.alpha = 0
         view.addSubview(loader)
         loader.animateColors(false)

@@ -45,7 +45,7 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
             tiltLoadingView.animateColors(false)
             var timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
         }
-        else if indexPath.row == 1 && !activeLoader{
+        else if indexPath.row == 1 && !activeLoader {
             tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 70, self.view.frame.size.height/2 - 70, 140, 140), color: UIColor.purpleColor(), cornerRad: 0.0)
             tiltLoadingView.dynamicDismissal = true
             self.view.addSubview(tiltLoadingView)
@@ -60,7 +60,7 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
             var timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
         }
         else if indexPath.row == 3 && !activeLoader {
-            TiltingLoader.showTiltingLoader(self.view, color: UIColor.orangeColor(), cornerVal: 0.0)
+            TiltingLoader.showTiltingLoader(self.view, color: UIColor.orangeColor(), cornerRad: 0.0)
             var timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopLoader", userInfo: nil, repeats: false)
         }
         else if indexPath.row == 4 && !activeLoader {
