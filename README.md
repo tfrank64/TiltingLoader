@@ -6,8 +6,10 @@ TiltingLoader is a loading view you can tilt while you wait. The loader is meant
 
 ## Demo
 
-Check out the DemoViewController for specific examples on how to use TiltingLoader
-<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/tiltingloadermotion.gif" width="320">
+Check out the DemoViewController for specific examples on how to use TiltingLoader</br>
+<p align = "center">
+	<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/tiltingloadermotion.gif" width="320">
+</p>
 
 ## Usage
 ** Run on a physical device for motion effects **
