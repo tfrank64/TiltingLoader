@@ -49,7 +49,7 @@ TiltingLoader.hideTiltingLoader(self.view, dynamic: true)
  </table>
 </br>
 
-Before calling `animateColors()` on a TiltingLoader instance, you can change the following properties:
+Before calling `animateColors()` on a TiltingLoader instance, you can change the following properties:</br>
 <table>
   <caption>Configureable Properties</caption>
   <tr>
