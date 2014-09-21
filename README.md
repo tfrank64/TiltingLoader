@@ -7,7 +7,7 @@ TiltingLoader is a loading view you can tilt while you wait. The loader is meant
 ## Demo
 
 Check out the DemoViewController for specific examples on how to use TiltingLoader
-<img src="#" width="320">
+<img src="https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/tiltingloadermotion.gif" width="320">
 
 ## Usage
 ** Run on a physical device for motion effects **
@@ -67,8 +67,8 @@ Before calling `animateColors()` on a TiltingLoader instance, you can change the
 
 ## Screenshots
 
-[![]()]()
-[![]()]()
+[![](https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/rectangular.png)](https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/rectangular.png)
+[![](https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/largeRounded.png)](https://raw.githubusercontent.com/tfrank64/TiltingLoader/master/repo_images/largeRounded.png)
 
 ## Installation
 ##### To install, simple drag the TiltingLoader.swift file to your project and use it.
