@@ -13,6 +13,7 @@
 		6B91EE2819AD815500804FC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B91EE2619AD815500804FC4 /* Main.storyboard */; };
 		6B91EE2A19AD815500804FC4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B91EE2919AD815500804FC4 /* Images.xcassets */; };
 		6B91EE3619AD815500804FC4 /* TiltingLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91EE3519AD815500804FC4 /* TiltingLoaderTests.swift */; };
+		6BBD722519D25A9F00E50FC1 /* TOCMotionEffectsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBD722419D25A9F00E50FC1 /* TOCMotionEffectsEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 		6B91EE2F19AD815500804FC4 /* TiltingLoaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiltingLoaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B91EE3419AD815500804FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B91EE3519AD815500804FC4 /* TiltingLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiltingLoaderTests.swift; sourceTree = "<group>"; };
+		6BBD722319D25A9E00E50FC1 /* TiltingLoader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TiltingLoader-Bridging-Header.h"; sourceTree = "<group>"; };
+		6BBD722419D25A9F00E50FC1 /* TOCMotionEffectsEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCMotionEffectsEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +80,14 @@
 		6B91EE1F19AD815500804FC4 /* TiltingLoader */ = {
 			isa = PBXGroup;
 			children = (
+				6BBD722419D25A9F00E50FC1 /* TOCMotionEffectsEngine.m */,
 				6B91EE2219AD815500804FC4 /* AppDelegate.swift */,
 				6B91EE2419AD815500804FC4 /* DemoViewController.swift */,
 				6B91EE2919AD815500804FC4 /* Images.xcassets */,
 				6B91EE2619AD815500804FC4 /* Main.storyboard */,
 				6B91EE2019AD815500804FC4 /* Supporting Files */,
 				6B5C2F5E19AD877F00DA873B /* TiltingLoader.swift */,
+				6BBD722319D25A9E00E50FC1 /* TiltingLoader-Bridging-Header.h */,
 			);
 			path = TiltingLoader;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B91EE2519AD815500804FC4 /* DemoViewController.swift in Sources */,
+				6BBD722519D25A9F00E50FC1 /* TOCMotionEffectsEngine.m in Sources */,
 				6B91EE2319AD815500804FC4 /* AppDelegate.swift in Sources */,
 				6B5C2F5F19AD877F00DA873B /* TiltingLoader.swift in Sources */,
 			);
@@ -331,10 +337,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TiltingLoader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TiltingLoader/TiltingLoader-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -343,10 +352,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TiltingLoader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TiltingLoader/TiltingLoader-Bridging-Header.h";
 			};
 			name = Release;
 		};

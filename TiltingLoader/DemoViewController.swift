@@ -15,7 +15,7 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var tiltLoadingView: TiltingLoader!
     @IBOutlet weak var demoTableView: UITableView!
-    var titles = ["Fade Dismissal", "Dynamic Dismissal", "Rectangular Shape", "Convience Method", "Reverse Animation", "Rounded Shape"]
+    var titles = ["Fade Dismissal", "Dynamic Dismissal", "Rectangular Shape", "Convenience Method", "Reverse Animation", "Rounded Shape"]
                             
     override func viewDidLoad() {
         super.viewDidLoad()
