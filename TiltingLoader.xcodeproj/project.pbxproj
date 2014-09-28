@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B2A5D7719D8AF2700CC36F6 /* TiltingLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C2F5E19AD877F00DA873B /* TiltingLoader.swift */; };
 		6B5C2F5F19AD877F00DA873B /* TiltingLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C2F5E19AD877F00DA873B /* TiltingLoader.swift */; };
 		6B91EE2319AD815500804FC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91EE2219AD815500804FC4 /* AppDelegate.swift */; };
 		6B91EE2519AD815500804FC4 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91EE2419AD815500804FC4 /* DemoViewController.swift */; };
@@ -227,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B2A5D7719D8AF2700CC36F6 /* TiltingLoader.swift in Sources */,
 				6B91EE3619AD815500804FC4 /* TiltingLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

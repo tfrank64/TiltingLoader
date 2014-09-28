@@ -46,7 +46,10 @@ void swizzledBeginSuspendingForReasonImp (id self, SEL _cmd, NSString *reason) {
     if ([reason isEqualToString:@"mirroringMainScreen"]) {
         return;
     }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self performSelector:NSSelectorFromString(@"swizzledBeginSuspendingForReason:") withObject:reason];
+#pragma clang diagnostic pop
 }
 
 

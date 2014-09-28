@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Taylor Franklin. All rights reserved.
 //
 
-// TODO: finalize Readme
-
 import UIKit
 import QuartzCore
 

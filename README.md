@@ -75,7 +75,7 @@ Before calling `animateColors()` on a TiltingLoader instance, you can change the
 ## Installation
 ##### To install, simple drag the TiltingLoader.swift file to your project and use it.
 * Use a [briding header](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html) to run in an Objective-C project.
-* Coming soon: CocoaPods integration
+* Coming soon: CocoaPods (Adding Swift projects to CocoaPods does not currently work) Check out this CocoaPods [issue](https://github.com/CocoaPods/CocoaPods/issues/2272) for more info and progress.
 
 TiltingLoader requires iOS 7 or later.
 

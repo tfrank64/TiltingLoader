@@ -23,7 +23,22 @@ class TiltingLoaderTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        var tiltLoadingView = TiltingLoader(frame: CGRectMake(100, 100, 100, 100), color: UIColor.purpleColor(), cornerRad: 0.0)
+
+        XCTAssertFalse(tiltLoadingView.frame == CGRectZero, "loader frame is zero")
+        XCTAssertFalse(!tiltLoadingView.isAnimating, "loader animation is turned off")
+        
+        tiltLoadingView.isAnimating = false
+        XCTAssertEqual(tiltLoadingView.isAnimating, false, "isAnimating is still true")
+        
+        tiltLoadingView.animationFrequency = 1.0
+        XCTAssertEqual(tiltLoadingView.animationFrequency, 1.0, "animationFrequency doesn't equal 1.0")
+        
+        tiltLoadingView.dynamicDismissal = true
+        XCTAssertEqual(tiltLoadingView.dynamicDismissal, true, "dynamicDismissal is not true")
+        
+        tiltLoadingView.dynamicDismissal = false
+        tiltLoadingView.hide()
     }
     
     func testPerformanceExample() {
