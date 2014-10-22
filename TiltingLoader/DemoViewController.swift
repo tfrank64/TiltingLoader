@@ -25,7 +25,7 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellID", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel?.text = titles[indexPath.row]
+        cell.textLabel.text = titles[indexPath.row]
         return cell
     }
     

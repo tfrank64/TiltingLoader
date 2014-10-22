@@ -14,11 +14,11 @@
 		<string>github.com:tfrank64/TiltingLoader.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TiltingLoader/TiltingLoader.xcodeproj</string>
+	<string>TiltingLoader.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F4B1C37CD632885CD9C79D66B9459FED995B737B</key>
-		<string>../../..</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:tfrank64/TiltingLoader.git</string>
