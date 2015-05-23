@@ -15,6 +15,9 @@ class TiltingLoader: UIView {
     private let colorShadeDifference: CGFloat = 0.05
     private var animator: UIDynamicAnimator?
     
+    /// Determines if background should be overlayed with a black overlay
+    internal var enableBackgroundOverlay: Bool
+    
     /// Determines if loader is or should be animating
     internal var isAnimating: Bool
     
@@ -31,9 +34,11 @@ class TiltingLoader: UIView {
     private var viewCount: Int
     private var sizeDifference: CGFloat
     private var views: [UIView]
+    private var overlayView: UIView?
     
     /// Tip: Recommended frame size of 50 or above
     init(frame: CGRect, color: UIColor, cornerRad: CGFloat) {
+        enableBackgroundOverlay = false
         isAnimating = true
         animationFrequency = 0.7
         mainColor = color
@@ -51,6 +56,7 @@ class TiltingLoader: UIView {
     
     /// NSCoder init seems to be mandatory for a UIView subclass in Swift
     required init(coder aDecoder: NSCoder) {
+        enableBackgroundOverlay = false
         isAnimating = true
         animationFrequency = 0.7
         mainColor = UIColor.purpleColor()
@@ -110,6 +116,15 @@ class TiltingLoader: UIView {
     
     /// Creates all the main UI components
     private func initView() {
+        
+        if enableBackgroundOverlay {
+            if let parent = self.superview {
+                self.overlayView = UIView(frame: parent.frame)
+                self.overlayView?.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+                parent.insertSubview(self.overlayView!, atIndex: 0)
+            }
+        }
+        
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))

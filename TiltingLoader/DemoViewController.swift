@@ -24,8 +24,8 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellID", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = titles[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("cellID", forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel!.text = titles[indexPath.row]
         return cell
     }
     
@@ -39,6 +39,7 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if indexPath.row == 0 && !activeLoader {
             tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 70, self.view.frame.size.height/2 - 70, 140, 140), color: UIColor.purpleColor(), cornerRad: 0.0)
+            tiltLoadingView.enableBackgroundOverlay = true
             self.view.addSubview(tiltLoadingView)
             tiltLoadingView.animateColors(false)
             var timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
