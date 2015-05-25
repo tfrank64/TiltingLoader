@@ -16,7 +16,7 @@ Check out the DemoViewController for specific examples on how to use TiltingLoad
 Create and being animating
 ```swift
 var tlView = TiltingLoader(frame: CGRectMake(50, 50, 100, 100), color: UIColor.purpleColor(), cornerRad: 0.0)
-self.view.addSubview(tlView)
+tiltLoadingView.enableOverlayOnView(self.view)
 tlView.animateColors(false)
 ```
 Convenience create and begin animating
@@ -49,7 +49,20 @@ TiltingLoader.hideTiltingLoader(self.view, dynamic: true)
  </table>
 </br>
 
-Before calling `animateColors()` on a TiltingLoader instance, you can change the following properties:</br>
+Before calling animateColors() on a TiltingLoader instance, you can change the following properties:</br>
+
+<table>
+	<caption>Required Methods</caption>
+	<tr>
+	<td><tt>enableOverlayOnView: UIView?</tt></td>
+    <td>Enable overlay behind tilting loader if superview has been passed in through this method</td>
+	</tr>
+	<tr>
+		<td><tt>animateColors: Bool</tt></td>
+    	<td>Begins color animation process by determining which color iteration method to call. When passing in false, colors animate in reverse. </td>
+	</tr>
+</table>
+
 <table>
   <caption>Configureable Properties</caption>
   <tr>

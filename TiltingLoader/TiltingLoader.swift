@@ -142,6 +142,7 @@ class TiltingLoader: UIView {
         }
     }
     
+    /// Enable overlay behind tilting loader if superview has been passed in
     func enableOverlayOnView(superView: UIView?) {
         
         var alphaValue: CGFloat = 0.0
