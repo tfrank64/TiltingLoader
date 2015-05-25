@@ -31,6 +31,7 @@ class TiltingLoader: UIView {
     private var viewCount: Int
     private var sizeDifference: CGFloat
     private var views: [UIView]
+    private var overlayView: UIView?
     
     /// Tip: Recommended frame size of 50 or above
     init(frame: CGRect, color: UIColor, cornerRad: CGFloat) {
@@ -64,7 +65,7 @@ class TiltingLoader: UIView {
         self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
     }
     
-    /// Convenience method to always add loader to center of passed in view
+    /// Convenience method to always add loader to center of passed in view, not made for customizability, so you cannot add a dark overlay over superview
     ///
     /// :param: view view is typically the superview, the view to add the tiltingLoader to
     /// :param: color color determines what color the tiltingLoader will be
@@ -73,6 +74,7 @@ class TiltingLoader: UIView {
         var loader = TiltingLoader(frame: rect, color: color, cornerRad: cornerRad)
         loader.alpha = 0
         view.addSubview(loader)
+        view.userInteractionEnabled = false
         loader.animateColors(false)
         UIView.animateWithDuration(0.3, animations: { loader.alpha = 1 })
     }
@@ -82,6 +84,7 @@ class TiltingLoader: UIView {
         if let loader = loaderForView(view) {
             loader.dynamicDismissal = dynamic
             loader.hide()
+            view.userInteractionEnabled = true
         }
     }
     
@@ -110,6 +113,7 @@ class TiltingLoader: UIView {
     
     /// Creates all the main UI components
     private func initView() {
+        
         // Calculate number of squares
         var minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
@@ -136,6 +140,22 @@ class TiltingLoader: UIView {
             if cornerRadius > 0 { tempView.layer.cornerRadius = cornerRadius }
             views.append(tempView)
         }
+    }
+    
+    /// Enable overlay behind tilting loader if superview has been passed in
+    func enableOverlayOnView(superView: UIView?) {
+        
+        var alphaValue: CGFloat = 0.0
+        if let view = superView {
+            alphaValue = 0.5
+
+        }
+        
+        self.overlayView = UIView(frame: UIApplication.sharedApplication().keyWindow!.frame)
+        self.overlayView?.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(alphaValue)
+        UIApplication.sharedApplication().keyWindow?.addSubview(self.overlayView!)
+        self.overlayView!.addSubview(self)
+        
     }
     
     /// This method adds vertical and horizontal motion behaviours to a UIView
@@ -177,12 +197,16 @@ class TiltingLoader: UIView {
     ///
     /// :param: reverse reverse is a boolean to determine which color iteration method to call
     internal func animateColors(reverse: Bool) {
-        animator = UIDynamicAnimator(referenceView: self.superview!)
-        
-        if reverse {
-            var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
+        if let superView = self.superview {
+            animator = UIDynamicAnimator(referenceView: self.superview!)
+            
+            if reverse {
+                var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
+            } else {
+                var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+            }
         } else {
-            var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+            println("There is no superview for this instance of TiltingLoader")
         }
     }
     
@@ -267,12 +291,14 @@ class TiltingLoader: UIView {
             }, completion: {(done: Bool) in
                 self.isAnimating = false
                 self.removeFromSuperview()
+                self.overlayView?.removeFromSuperview()
             })
         }
     }
 
     func removeLoader() {
         self.removeFromSuperview()
+        self.overlayView?.removeFromSuperview()
     }
     
 }
