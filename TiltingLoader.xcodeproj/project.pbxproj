@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B2A5D7719D8AF2700CC36F6 /* TiltingLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C2F5E19AD877F00DA873B /* TiltingLoader.swift */; };
 		6B5C2F5F19AD877F00DA873B /* TiltingLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C2F5E19AD877F00DA873B /* TiltingLoader.swift */; };
+		6B82D5CC1B27F838002F1CF2 /* TiltingLoader_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B82D5CB1B27F838002F1CF2 /* TiltingLoader_UI_Tests.swift */; };
 		6B91EE2319AD815500804FC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91EE2219AD815500804FC4 /* AppDelegate.swift */; };
 		6B91EE2519AD815500804FC4 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B91EE2419AD815500804FC4 /* DemoViewController.swift */; };
 		6B91EE2819AD815500804FC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B91EE2619AD815500804FC4 /* Main.storyboard */; };
@@ -18,6 +19,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6B82D5CE1B27F838002F1CF2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6B91EE1519AD815500804FC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6B91EE1C19AD815500804FC4;
+			remoteInfo = TiltingLoader;
+		};
 		6B91EE3019AD815500804FC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6B91EE1519AD815500804FC4 /* Project object */;
@@ -29,6 +37,9 @@
 
 /* Begin PBXFileReference section */
 		6B5C2F5E19AD877F00DA873B /* TiltingLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiltingLoader.swift; sourceTree = "<group>"; };
+		6B82D5C91B27F838002F1CF2 /* TiltingLoader-UI-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TiltingLoader-UI-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B82D5CB1B27F838002F1CF2 /* TiltingLoader_UI_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiltingLoader_UI_Tests.swift; sourceTree = "<group>"; };
+		6B82D5CD1B27F838002F1CF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B91EE1D19AD815500804FC4 /* TiltingLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiltingLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B91EE2119AD815500804FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B91EE2219AD815500804FC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +54,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6B82D5C61B27F838002F1CF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6B91EE1A19AD815500804FC4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -60,11 +78,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B82D5CA1B27F838002F1CF2 /* TiltingLoader-UI-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6B82D5CB1B27F838002F1CF2 /* TiltingLoader_UI_Tests.swift */,
+				6B82D5CD1B27F838002F1CF2 /* Info.plist */,
+			);
+			path = "TiltingLoader-UI-Tests";
+			sourceTree = "<group>";
+		};
 		6B91EE1419AD815500804FC4 = {
 			isa = PBXGroup;
 			children = (
 				6B91EE1F19AD815500804FC4 /* TiltingLoader */,
 				6B91EE3219AD815500804FC4 /* TiltingLoaderTests */,
+				6B82D5CA1B27F838002F1CF2 /* TiltingLoader-UI-Tests */,
 				6B91EE1E19AD815500804FC4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,6 +102,7 @@
 			children = (
 				6B91EE1D19AD815500804FC4 /* TiltingLoader.app */,
 				6B91EE2F19AD815500804FC4 /* TiltingLoaderTests.xctest */,
+				6B82D5C91B27F838002F1CF2 /* TiltingLoader-UI-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,6 +150,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6B82D5C81B27F838002F1CF2 /* TiltingLoader-UI-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B82D5D01B27F838002F1CF2 /* Build configuration list for PBXNativeTarget "TiltingLoader-UI-Tests" */;
+			buildPhases = (
+				6B82D5C51B27F838002F1CF2 /* Sources */,
+				6B82D5C61B27F838002F1CF2 /* Frameworks */,
+				6B82D5C71B27F838002F1CF2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6B82D5CF1B27F838002F1CF2 /* PBXTargetDependency */,
+			);
+			name = "TiltingLoader-UI-Tests";
+			productName = "TiltingLoader-UI-Tests";
+			productReference = 6B82D5C91B27F838002F1CF2 /* TiltingLoader-UI-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		6B91EE1C19AD815500804FC4 /* TiltingLoader */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6B91EE3919AD815500804FC4 /* Build configuration list for PBXNativeTarget "TiltingLoader" */;
@@ -166,6 +213,10 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Taylor Franklin";
 				TargetAttributes = {
+					6B82D5C81B27F838002F1CF2 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 6B91EE1C19AD815500804FC4;
+					};
 					6B91EE1C19AD815500804FC4 = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -190,11 +241,19 @@
 			targets = (
 				6B91EE1C19AD815500804FC4 /* TiltingLoader */,
 				6B91EE2E19AD815500804FC4 /* TiltingLoaderTests */,
+				6B82D5C81B27F838002F1CF2 /* TiltingLoader-UI-Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6B82D5C71B27F838002F1CF2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6B91EE1B19AD815500804FC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -214,6 +273,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6B82D5C51B27F838002F1CF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B82D5CC1B27F838002F1CF2 /* TiltingLoader_UI_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6B91EE1919AD815500804FC4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +304,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6B82D5CF1B27F838002F1CF2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6B91EE1C19AD815500804FC4 /* TiltingLoader */;
+			targetProxy = 6B82D5CE1B27F838002F1CF2 /* PBXContainerItemProxy */;
+		};
 		6B91EE3119AD815500804FC4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6B91EE1C19AD815500804FC4 /* TiltingLoader */;
@@ -256,6 +328,37 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6B82D5D11B27F838002F1CF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "TiltingLoader-UI-Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.taylorfranklin.TiltingLoader-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TiltingLoader;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		6B82D5D21B27F838002F1CF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "TiltingLoader-UI-Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.taylorfranklin.TiltingLoader-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TiltingLoader;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		6B91EE3719AD815500804FC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -406,6 +509,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6B82D5D01B27F838002F1CF2 /* Build configuration list for PBXNativeTarget "TiltingLoader-UI-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B82D5D11B27F838002F1CF2 /* Debug */,
+				6B82D5D21B27F838002F1CF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		6B91EE1819AD815500804FC4 /* Build configuration list for PBXProject "TiltingLoader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
