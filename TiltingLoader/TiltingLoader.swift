@@ -46,7 +46,7 @@ class TiltingLoader: UIView {
         views = [UIView]()
         super.init(frame: frame)
         
-        self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
+        self.autoresizingMask = [UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleLeftMargin, UIViewAutoresizing.FlexibleRightMargin]
         initView()
     }
     
@@ -62,16 +62,16 @@ class TiltingLoader: UIView {
         sizeDifference = 0
         views = [UIView]()
         super.init(coder: aDecoder)
-        self.autoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin
+        self.autoresizingMask = [UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleLeftMargin, UIViewAutoresizing.FlexibleRightMargin]
     }
     
     /// Convenience method to always add loader to center of passed in view, not made for customizability, so you cannot add a dark overlay over superview
     ///
-    /// :param: view view is typically the superview, the view to add the tiltingLoader to
-    /// :param: color color determines what color the tiltingLoader will be
+    /// - parameter view: view is typically the superview, the view to add the tiltingLoader to
+    /// - parameter color: color determines what color the tiltingLoader will be
     class func showTiltingLoader(view: UIView, color: UIColor, cornerRad: CGFloat) {
-        var rect = CGRectMake(view.frame.size.width/2 - 50, view.frame.size.height/2 - 50, 100, 100)
-        var loader = TiltingLoader(frame: rect, color: color, cornerRad: cornerRad)
+        let rect = CGRectMake(view.frame.size.width/2 - 50, view.frame.size.height/2 - 50, 100, 100)
+        let loader = TiltingLoader(frame: rect, color: color, cornerRad: cornerRad)
         loader.alpha = 0
         view.addSubview(loader)
         view.userInteractionEnabled = false
@@ -91,7 +91,7 @@ class TiltingLoader: UIView {
     /// Finds TiltingLoader reference
     class func loaderForView(view: UIView) -> TiltingLoader? {
         var tempLoader: TiltingLoader?
-        var viewsArray = view.subviews.reverse()
+        let viewsArray = Array(Array(view.subviews.reverse()))
         for subview in viewsArray {
             if subview.isKindOfClass(self) {
                 tempLoader = subview as? TiltingLoader
@@ -102,7 +102,7 @@ class TiltingLoader: UIView {
     }
     
     class func activeLoadersInView(view: UIView) -> Bool {
-        var viewsArray = view.subviews.reverse()
+        let viewsArray = Array(Array(view.subviews.reverse()))
         for subview in viewsArray {
             if subview.isKindOfClass(self) {
                 return true
@@ -115,23 +115,23 @@ class TiltingLoader: UIView {
     private func initView() {
         
         // Calculate number of squares
-        var minVal = fmin(self.frame.size.width, self.frame.size.height)
+        let minVal = fmin(self.frame.size.width, self.frame.size.height)
         viewCount = Int(floor(Float(minVal)/ratioValue))
         if (viewCount == 0 || viewCount == 1) { viewCount = 2 } // Effect is pointless with few squares
         if (viewCount > 10) { viewCount = 10 } // Color gets to white with more than 10
         sizeDifference = minVal/CGFloat(viewCount + 1) // Plus 1 to ensure all views are visible
-        var halfSize = sizeDifference/2
+        let halfSize = sizeDifference/2
         
         // Create squares with increasingly lighter colors
         for index in 0..<viewCount {
 
-            var tempView = UIView()
+            let tempView = UIView()
             if index == 0 {
                 tempView.frame = CGRectDecrementSize(self.frame, decrement: sizeDifference)
                 tempView.backgroundColor = mainColor
                 self.addSubview(tempView)
             } else {
-                var previousView = views.last as UIView!
+                let previousView = views.last as UIView!
                 tempView.frame = CGRectDecrementSize(previousView.frame, decrement: sizeDifference)
                 tempView.backgroundColor = lighterColorForColor(previousView.backgroundColor!)
                 previousView.addSubview(tempView)
@@ -146,7 +146,7 @@ class TiltingLoader: UIView {
     func enableOverlayOnView(superView: UIView?) {
         
         var alphaValue: CGFloat = 0.0
-        if let view = superView {
+        if let _ = superView {
             alphaValue = 0.5
 
         }
@@ -160,9 +160,9 @@ class TiltingLoader: UIView {
     
     /// This method adds vertical and horizontal motion behaviours to a UIView
     ///
-    /// :param: x x is the horizontal motion range
-    /// :param: y y is the vertical motion range
-    /// :param: view view is the UIView for which the motion effect will be applied
+    /// - parameter x: x is the horizontal motion range
+    /// - parameter y: y is the vertical motion range
+    /// - parameter view: view is the UIView for which the motion effect will be applied
     private func addHorizontalVerticalMotionToView(x: CGFloat, y: CGFloat, view: UIView) {
         var xAxis: UIInterpolatingMotionEffect?
         var yAxis: UIInterpolatingMotionEffect?
@@ -179,7 +179,7 @@ class TiltingLoader: UIView {
         }
         
         if xAxis != nil || yAxis != nil {
-            var group = UIMotionEffectGroup()
+            let group = UIMotionEffectGroup()
             var effects = [UIInterpolatingMotionEffect]()
             if let val = xAxis {
                 effects.append(val)
@@ -195,18 +195,18 @@ class TiltingLoader: UIView {
     
     /// Begins color animation process by determining which color iteration method to call
     ///
-    /// :param: reverse reverse is a boolean to determine which color iteration method to call
+    /// - parameter reverse: reverse is a boolean to determine which color iteration method to call
     internal func animateColors(reverse: Bool) {
-        if let superView = self.superview {
+        if let _ = self.superview {
             animator = UIDynamicAnimator(referenceView: self.superview!)
             
             if reverse {
-                var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
             } else {
-                var timer = NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
             }
         } else {
-            println("There is no superview for this instance of TiltingLoader")
+            print("There is no superview for this instance of TiltingLoader", appendNewline: false)
         }
     }
     
@@ -249,17 +249,17 @@ class TiltingLoader: UIView {
     
     /// Helper method to make a CGRect the decrement size smaller
     ///
-    /// :param: frame The frame is the original frame
-    /// :param: decrement decrement is the scale by which the returned CGRect will be smaller
-    /// :returns: Returns a CGRect smaller and centered in frame
+    /// - parameter frame: The frame is the original frame
+    /// - parameter decrement: decrement is the scale by which the returned CGRect will be smaller
+    /// - returns: Returns a CGRect smaller and centered in frame
     private func CGRectDecrementSize(frame: CGRect, decrement: CGFloat) -> CGRect {
         return CGRectMake(decrement / 2, decrement / 2, frame.size.width - decrement, frame.size.height - decrement)
     }
     
     /// Method that returns a slightly lighter color than the one passed in
     ///
-    /// :param: color color is the color we want to make ligter
-    /// :returns: The lighter color
+    /// - parameter color: color is the color we want to make ligter
+    /// - returns: The lighter color
     private func lighterColorForColor(color: UIColor) -> UIColor {
         var r:CGFloat = 0, g:CGFloat = 0, b:CGFloat = 0, a: CGFloat = 0
         if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
@@ -273,12 +273,12 @@ class TiltingLoader: UIView {
         if dynamicDismissal {
             self.isAnimating = false
 
-            var gravityBehavior = UIGravityBehavior(items: [self])
+            let gravityBehavior = UIGravityBehavior(items: [self])
             gravityBehavior.gravityDirection = CGVectorMake(0, 7)
             animator!.addBehavior(gravityBehavior)
             
-            var itemBehaviour = UIDynamicItemBehavior(items: [self])
-            var negate = -M_PI_2
+            let itemBehaviour = UIDynamicItemBehavior(items: [self])
+            let negate = -M_PI_2
             itemBehaviour.addAngularVelocity(CGFloat(negate), forItem: self)
             animator!.addBehavior(itemBehaviour)
             
