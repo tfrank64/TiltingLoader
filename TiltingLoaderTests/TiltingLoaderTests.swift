@@ -23,7 +23,7 @@ class TiltingLoaderTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        var tiltLoadingView = TiltingLoader(frame: CGRectMake(100, 100, 100, 100), color: UIColor.purpleColor(), cornerRad: 0.0)
+        let tiltLoadingView = TiltingLoader(frame: CGRectMake(100, 100, 100, 100), color: UIColor.purpleColor(), cornerRad: 0.0)
 
         XCTAssertFalse(tiltLoadingView.frame == CGRectZero, "loader frame is zero")
         XCTAssertFalse(!tiltLoadingView.isAnimating, "loader animation is turned off")
