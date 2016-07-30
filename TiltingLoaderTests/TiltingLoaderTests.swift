@@ -23,9 +23,9 @@ class TiltingLoaderTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        let tiltLoadingView = TiltingLoader(frame: CGRectMake(100, 100, 100, 100), color: UIColor.purpleColor(), cornerRad: 0.0)
+        let tiltLoadingView = TiltingLoader(frame: CGRect(x: 100, y: 100, width: 100, height: 100), color: UIColor.purple(), cornerRad: 0.0)
 
-        XCTAssertFalse(tiltLoadingView.frame == CGRectZero, "loader frame is zero")
+        XCTAssertFalse(tiltLoadingView.frame == CGRect.zero, "loader frame is zero")
         XCTAssertFalse(!tiltLoadingView.isAnimating, "loader animation is turned off")
         
         tiltLoadingView.isAnimating = false
@@ -43,7 +43,7 @@ class TiltingLoaderTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }
