@@ -61,7 +61,7 @@ class TiltingLoader: UIView {
         viewCount = 0
         sizeDifference = 0
         views = [UIView]()
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         self.autoresizingMask = [UIViewAutoresizing.FlexibleTopMargin, UIViewAutoresizing.FlexibleBottomMargin, UIViewAutoresizing.FlexibleLeftMargin, UIViewAutoresizing.FlexibleRightMargin]
     }
     
@@ -201,12 +201,12 @@ class TiltingLoader: UIView {
             animator = UIDynamicAnimator(referenceView: self.superview!)
             
             if reverse {
-                NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColorsInReverse", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: #selector(TiltingLoader.iterateColorsInReverse), userInfo: nil, repeats: true)
             } else {
-                NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: "iterateColors", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(animationFrequency, target: self, selector: #selector(TiltingLoader.iterateColors), userInfo: nil, repeats: true)
             }
         } else {
-            print("There is no superview for this instance of TiltingLoader", appendNewline: false)
+            print("There is no superview for this instance of TiltingLoader", terminator: "")
         }
     }
     
@@ -234,7 +234,7 @@ class TiltingLoader: UIView {
         
         if isAnimating {
             var tempColor: UIColor = UIColor.whiteColor()
-            for var index = viewCount - 1; index >= 0; index-- {
+            for index in (viewCount - 1).stride(to: -1, by: -1) {
                 if index == viewCount - 1 {
                     tempColor = views[index].backgroundColor!
                     views[index].backgroundColor = views[index - 1].backgroundColor
@@ -283,7 +283,7 @@ class TiltingLoader: UIView {
             animator!.addBehavior(itemBehaviour)
             
             // Give gravity time before removing loader
-            NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector: "removeLoader", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector: #selector(TiltingLoader.removeLoader), userInfo: nil, repeats: false)
 
         } else {
             UIView.animateWithDuration(0.25, animations: {

@@ -41,37 +41,37 @@ class DemoViewController: UIViewController, UITableViewDelegate, UITableViewData
             tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 70, self.view.frame.size.height/2 - 70, 140, 140), color: UIColor.purpleColor(), cornerRad: 0.0)
             tiltLoadingView.enableOverlayOnView(self.view)
             tiltLoadingView.animateColors(false)
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(DemoViewController.stopInstance), userInfo: nil, repeats: false)
         }
         else if indexPath.row == 1 && !activeLoader {
             tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 70, self.view.frame.size.height/2 - 70, 140, 140), color: UIColor.purpleColor(), cornerRad: 0.0)
             tiltLoadingView.dynamicDismissal = true
             tiltLoadingView.enableOverlayOnView(nil)
             tiltLoadingView.animateColors(false)
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(DemoViewController.stopInstance), userInfo: nil, repeats: false)
         }
         else if indexPath.row == 2 && !activeLoader {
             tiltLoadingView = TiltingLoader(frame: CGRectMake(0, 224, self.view.frame.size.width, 80), color: UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0), cornerRad: 0.0)
             tiltLoadingView.dynamicDismissal = true
             tiltLoadingView.enableOverlayOnView(self.view)
             tiltLoadingView.animateColors(false)
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(DemoViewController.stopInstance), userInfo: nil, repeats: false)
         }
         else if indexPath.row == 3 && !activeLoader {
             TiltingLoader.showTiltingLoader(self.view, color: UIColor.orangeColor(), cornerRad: 0.0)
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopLoader", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(DemoViewController.stopLoader), userInfo: nil, repeats: false)
         }
         else if indexPath.row == 4 && !activeLoader {
             tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 70, self.view.frame.size.height/2 - 70, 140, 140), color: UIColor.purpleColor(), cornerRad: 0.0)
             tiltLoadingView.enableOverlayOnView(self.view)
             tiltLoadingView.animateColors(true)
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(DemoViewController.stopInstance), userInfo: nil, repeats: false)
         }
         else if !activeLoader {
             tiltLoadingView = TiltingLoader(frame: CGRectMake(self.view.frame.size.width/2 - 120, self.view.frame.size.height/2 - 120, 240, 240), color: UIColor.orangeColor(), cornerRad: 30.0)
             tiltLoadingView.enableOverlayOnView(self.view)
             tiltLoadingView.animateColors(false)
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "stopInstance", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(DemoViewController.stopInstance), userInfo: nil, repeats: false)
         }
     }
     
